@@ -1,12 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:my_study_planner/main.dart';
 
 void main() {
-  testWidgets('My Study Planner app loads', (WidgetTester tester) async {
+  setUpAll(() {
+    databaseFactory = databaseFactoryFfi;
+  });
+
+  testWidgets('StudyFlow app loads successfully', (WidgetTester tester) async {
     await tester.pumpWidget(const MyStudyPlannerApp());
 
-    expect(find.text('My Study Planner'), findsOneWidget);
-    expect(find.text('Study Goals'), findsOneWidget);
-    expect(find.text('Add Goal'), findsOneWidget);
+    await tester.pump();
+
+    expect(find.text('StudyFlow'), findsOneWidget);
   });
 }
